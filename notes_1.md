@@ -37,6 +37,15 @@ pip install django
   ```
 
 -----
+## How To freeze a pip :-
+- Every time when we **install** a **new library / package or framework** then we will have to freeze our `pip` with the following command -
+- Syntax :- 👉 &nbsp; **pip freeze > path**
+  ```bash
+  pip freeze > ../requirements.txt
+  ```
+- It's recommended to create a **requirements.txt** file in your directory where your project are located **requirements.txt** file tells us what dependicies are required to our project.
+- It's optional but recommended to production grade applications.
+-----
 ## How To create a project in django :-
 - When we create a new project in django then we will have to take care of some initial setup. We will need generate some code that establishes a **Django project.**
 - Create a folder where we we have to store our code then run the following command:-
@@ -113,7 +122,7 @@ INSTALLED_APPS =[
 - *Your path should be :-* <br>
   **tweetApp/templates/tweetApp/index.html**
   <br>
-  where `tweeApp` name is our app name.
+  where `tweetApp` name is our app name.
 
   - Go to your `views.py` file which is located in your app and write the following code:-<br>
    *path:* **tweetApp/views.py**
@@ -125,7 +134,9 @@ INSTALLED_APPS =[
         return render(request, "tweetApp/index.html")
   
   ```
-
+  - `render()`:- **render()** function **takes the request object as its first argument**, **a template name as its second argument** and **a dictionary as its optional third argument.** It returns an `HttpResponse` object  of the given template rendered with the given context.
+  - Syntax:-👉  &nbsp;`render(request,template_name,{})`
+  - **Example :-** 👉  &nbsp;**render(request,"index.html", { "name" : "Master" } )**
 - Create another file in your app which name should be `urls.py` and write the following code:-
     ```python
 
@@ -147,7 +158,7 @@ INSTALLED_APPS =[
   - *Your path should be :-* <br>
     **tweetApp/static/tweetApp/css/styles.css**
     <br>
-    where `tweeApp` name is our app name.
+    where `tweetApp` name is our app name.
 
   - **styles.css** file is:-👇
  
@@ -164,7 +175,7 @@ INSTALLED_APPS =[
   - *Your path should be :-* <br>
     **tweetApp/static/tweetApp/js/main.js**
     <br>
-    where `tweeApp` name is our app name.
+    where `tweetApp` name is our app name.
 
   - **main.js** file is:-👇
       ```javascript
@@ -337,10 +348,6 @@ INSTALLED_APPS =[
   </html>
   ```
 
-
-
-  
- 
 ------
 
 
@@ -353,3 +360,118 @@ INSTALLED_APPS =[
 - Enter your desire **username**, **email address** and **password** also. After enter your information press enter and You will see a message `Superuser created sucessfully.`
 - After creating `superuser` start development server and open a browser and go to `/admin/` on your local domain <br>
   **example :-** **http://127.0.0.1:8000/admin** <br> Then you will show admin's login screen.
+
+------
+## What is view in Django :-
+- A **view** is a "type" of webpage in our Django web application that **generally serves a specific function** and has a specific **template**.
+- In Django, **web pages and other content** are **delivered by views**. **Each view** is represented by a **python function** (or method in the case of class based views). Django will choose a view by examine a URL that's requested. 
+- To get from a URL to a view, Django uses what are known as **URLconfs**. A URL confs maps URL pattern to views.
+- *For example* 👇:- &nbsp; In a **blog application** you might have the following views:
+    - **Blog homepage** - *displays latest few entries.*
+    - **Entry "detail" page** - *permalink page for a single entry.*
+    - **Comment Action** - *handling post comments to a given entry.* <br> and so on.
+------
+
+## How To capture a value that comes via url (url bar) :-
+- **To get a value from a url bar** which is known as **permalink or slug**.
+- open a file which name is `urls.py`
+  ```python
+  from django.url import path
+  
+  urlpatterns = [
+    # home page.
+    path("", views.index, name="index"),
+    # example : /5
+    path("<int:question_id>/", views.detail, name="detail"),
+
+    # example: /5/results/
+    path("<int:question_id>/results/", views.results, name="results"),
+
+    # example: /5/vote/
+    path("<int:question_id>/vote/", views.vote, name="vote"),
+
+  ]
+  ```
+
+- **Using angle brackets** "captures" part of the **URL** and send it as a keyword argument to the view function. The question_id **part of the string** **defines the name that will be used to identify the matched pattern**, and the **int** part **is a converter** that determines what patterns should match this part of the **URL path**. 
+  
+- The **colon(:)** **seprates** the **converter** and **pattern name (variable name)**.
+- **Syntax :-** 👉&nbsp;`<converter:variableName>`
+- example :- `<int:id>`
+
+
+    #### Note :-
+    - **To capture a value from a URL use angle brackets**.
+    - **Captured value can be optionally include a converter type**. 
+    - **For example**, use `<int:name>` to **capture an integer parameter**. If **a converter** **isn’t included, any string, excluding a / character, is matched**.
+    - **There’s no need to add a leading slash, because every URL has that**.
+  
+  ### Path Converters :-
+  - The follwing path converteres are available by default :-
+  
+    1. &nbsp;**str :-** *Matches any non-empty string, excluding the path separator, '/'. This is the default if a converter isn’t included in the expression.*
+    2. &nbsp;**int :-**  *Matches zero or any positive integer. Returns an int.*
+    3. &nbsp;**slug :-** Matches any **slug string consisting** of **ASCII letters** or **numbers, plus the hyphen and underscore characters**. ,<br> For example :- *building-your-1st-django-site*.
+    4. &nbsp;**path :-** **Matches any non-empty string, including the path separator, '/'.** This allows you to match against a complete URL path rather than a segment of a URL path as with str.
+    5. &nbsp;For more information [click here.](https://docs.djangoproject.com/en/5.0/topics/http/urls/)
+   
+ - Wire these `urls.py` file with `views.py` file .
+    ```python
+    def detail(request,question_id):
+      return HttpResponse("You're looking at question",question_id)
+    
+    def results(request,question_id):
+      return HttpResponse("You're looking at the result of question",question_id)
+
+    def vote(request,question_id):
+      return HttpResponse("You're voting on question",question_id)
+    ``` 
+-----
+## Django Shortcut Functions :-
+1.  &nbsp;**render():-** This function is used to render a html file in a browser.<br/>
+      &nbsp;**Syntax :-** **render(request,template_name,context)** <br/>
+      **required arguments:-**
+      - **request :-** The request object used to generate this response.
+      - **template_name :-** The full name of a template to use or sequence of template names(html file).
+
+    **optional arguments :-**
+    - **context :-** **A dictionary of values** to add to the **template context.** **By default, this is an empty dictionary.** If a value in the dictionary is callable, the view will call it just before rendering the template.
+
+2. &nbsp;**redirect() :-** Returns an `HttpResponseRedirect` to the **appropriate URL for the arguments passed.**
+   
+3. &nbsp;**get_object_or_404() :-** This function  calls `get()` on a `given model manager`, **but it raises Http404 instead of the model’s DoesNotExist exception.** <br/>
+    - This function takes a **Django Model as a first argument** and **an arbitary number** of **keyword number of arguments** which it passes to the **get() function** of the **model's manager.** It **raises** `Http404` if the object doesn't exist.
+    - **Syntax :-** 👉 `get_object_or_404(Model_name,Lookup_parameter)`
+    - **Example :-** 👉 &nbsp;**get_object_or_404(Question, pk=question_id)**
+
+4. &nbsp;**get_list_or_404() :-**  This function returns the result of `filter()` on a **given model manager cast to a list,** **raising Http404** if the result **list is empty.**
+    - **Syntax :-** 👉 `get_list_or_404(Model_name,Lookup_parameter)`
+    - **Example :-** 👉 &nbsp;**get_list_or_404(Question, pk=question_id)**
+5. &nbsp;For more information [click here](https://docs.djangoproject.com/en/5.0/topics/http/shortcuts/)
+   
+-----
+## Namespacing URL names :-
+- If your project just has **one app** then no need **Namespacing URL names.**
+- In real Django projects there might be five, ten or twenty apps or more. How does Django differentiate the URL names between them ?
+- To get rid of this problem **Django use namespacing URL.** 
+- **Syntax :-** 👉 &nbsp;**app_name = "application_name"**
+- In our application `urls.py` file we add **namespacing URL.**
+- file 👇 **urls.py** add the following code :-
+  ```python
+  from django.urls import path
+
+  # this will add 
+  app_name = "tweetApp"
+
+  urlpatterns = [
+    path("", views.index, name="index"),
+    
+    ]
+  ```
+- After doing this we have to change **link or path** in HTML file.
+- **Syntax:-** 👉 &nbsp;**{% url 'appName:view_function'  URLconf (optional)  %}**
+- *file*  👇&nbsp;**tweetApp/templates/tweetApp/index.html**
+  
+  ```html
+  <a href="{% url 'tweetApp:index' %}">Click Here</a>
+  ```
