@@ -475,3 +475,26 @@ INSTALLED_APPS =[
   ```html
   <a href="{% url 'tweetApp:index' %}">Click Here</a>
   ```
+------
+## How To check that which route is active and change CSS in nav bar :-
+- `request.resolver_match.url_name` gives us **current route.** 
+```python
+<a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" aria-current="page" href="{% url 'polls:about' %}">About Us</a>
+```
+------
+### Some Important Notes :-
+- `reqest.method == "POST"` 👉 It is used **to check** that `request` is **POST or not.**
+- `reques.method == "GET"` 👉 It is used **to check** that request is **GET or not.**
+- `request.user` 👉 This gives us **registered user value.**
+- `request.POST` 👉 It is a **dictionary** that is used only **POST request.**
+- `request.GET` 👉  It is also a **dictionary** but it is used only **GET request**.
+  
+- `request.POST['key-name']` 👉 This gives us value that we wiil give in front-end section.
+  -  **[ 'key-name' ]** 👉 It is value of  name attribute value in HTML page. 
+  
+- `request.GET['key-name']` 👉 Similar to `request.POST['key-name']` but it is used only **get request**.
+
+------
+### How to handle media Files
+
+- [Click Here](https://docs.djangoproject.com/en/5.0/topics/files/) for more information.
