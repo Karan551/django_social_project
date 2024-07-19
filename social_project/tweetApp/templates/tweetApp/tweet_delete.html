@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block title %}
+  Tweet App | Delete Tweet
+{% endblock %}
+{% block content %}
+  <h2 class="fs-4 fw-bold">Are You Sure To Delete This Tweet ?</h2>
+
+  <div>
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn btn-danger fs-4 px-2 py-3 d-inline-block">Delete</button>
+      <a href="{% url 'tweet_app:index' %}" class="btn btn-success px-2 py-3 d-inline-block fs-4">Cancel</a>
+    </form>
+    <a href="{% url 'tweet_app:index' %}"><button type="button" class="btn btn-lg btn-primary my-3">Back To Home</button></a>
+  </div>
+{% endblock %}

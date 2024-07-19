@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block title %}
+  Tweet App
+{% endblock %}
+{% block content %}
+  {% if form.instance.pk %}
+    <h2 class="fs-2 fw-bold text-center">Edit Tweet</h2>
+  {% else %}
+    <h2 class="fs-2 fw-boldt text-center">Create Tweet</h2>
+  {% endif %}
+
+  <form method="post" class="mt-2 px-3 py-2" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+      <label for="{{ field.auto_id }}" class="d-inline-block form-label fs-4 fw-bold mb-2">{{ field.label }}</label>
+      {{ field }}
+    {% endfor %}
+
+    <div>
+      <button type="submit" class="btn btn-lg btn-outline-success my-2 fw-bold fs-4">Submit</button>
+    </div>
+  </form>
+{% endblock %}

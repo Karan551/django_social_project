@@ -1,13 +1,26 @@
-
-
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 {% block title %}
-Tweet App
-
-{% endblock title %}
-
+  Tweet App
+{% endblock %}
 {% block content %}
+  <h1>Tweet Section</h1>
+  <section class="row mx-auto">
+    {% for tweet in tweets %}
+      <div class="col-12 col-md-4 my-2 my-sm-1 mx-sm-4 mx-md-5">
+        <div class="card" style="width: 18rem">
+          <img src="{{ tweet.user_image.url }}" class="card-img-top" alt="{{ tweet.user }}-img" />
+          <div class="card-body">
+            <h5 class="card-title">{{ tweet.user_name }}</h5>
+            <p class="card-text">{{ tweet.user_text }}</p>
+            <p class="card-text">
+              Tweet at - <span class="fw-bold text-secondary">{{ tweet.cretated_at }}</span>
+            </p>
+            <a href="{% url 'tweet_app:edit_tweet' tweet.pk %}" class="btn btn-warning mr-2 d-inline-block">Edit</a>
 
-<h1>This is our Django Project.</h1>
-
-{% endblock content %}
+            <a href="{% url 'tweet_app:delete_tweet' tweet.pk %}" class="btn btn-danger mx-3 d-inline-block">Delete</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+{% endblock %}
