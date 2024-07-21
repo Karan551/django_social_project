@@ -493,7 +493,97 @@ INSTALLED_APPS =[
   -  **[ 'key-name' ]** 👉 It is value of  name attribute value in HTML page. 
   
 - `request.GET['key-name']` 👉 Similar to `request.POST['key-name']` but it is used only **get request**.
+  
+- `LOGIN_URL` **:-** 👉 **The URL or named URL pattern where requests are redirected for login** when using the `login_required()` **decorator**. <br> **Default value of this constant** is `/accounts/login/` , **This constant we write** in `settings.py` file.
+    - **Syntax :-** 👉 **LOGIN_URL = url Or named_url**
+    - **For example :-** 👉 `LOGIN_URL = "tweet_app:login"`
+  
+- `LOGIN_REDIRECT_URL` **:-** 👉 **The URL or named URL pattern where requests are redirected after sucessfully login when the LoginView doesn’t get a next GET parameter.** <br> **Default value of this constant** is `/accounts/profile/` , **This constant we write** in `settings.py` file.
 
+- `LOGOUT_REDIRECT_URL` **:-** 👉 **The URL or named URL pattern where requests are redirected after logout if LogoutView doesn’t have a next_page attribute.** <br> **Default value of this constant** is `None` , **This constant we write** in `settings.py` file.
+  
+  - [Click Here](https://docs.djangoproject.com/en/5.0/ref/settings/#login-redirect-url) for more information.
+
+
+------
+## How To Create a Private Route/View :-
+ 
+- **Syntax :-** &nbsp; 
+   `login_required(redirect_field_name='next', login_url=None)` 
+  1. `redirect_field_name` :- 👉 &nbsp; **This argument tells us what we want to do after sucessufully logged in.**
+     - `redirect_field_name = 'next'` **(By default) but we can overwrite this.** 
+   
+  2. `login_url` :- 👉 &nbsp; This argument tells us where we want to carry our private route. **By Default it is** `None`.
+      - for example :- `tweet_create -> tweet_app:login`
+  
+    
+   - If the **user isn’t logged** in, **redirect** to **settings.LOGIN_URL**, passing the current absolute path in the query string. 
+  
+   - If the **user is logged in**, **execute the view normally**. The view code is free to assume the user is logged in.
+    
+- We can create a private route with the help of `
+@login_required` **decorator**
+
+<h2 align="center">1st method</h2>
+
+  ```python
+
+  from django.contrib.auth.decorators import login_required
+
+  # the route / function that we want to make private.
+
+  @login_required
+  def tweet_create(request):
+    form = TweetForm()
+    if request.method == "POST":
+        form = TweetForm(request.POST, request.FILES)
+        if form.is_valid():
+            tweet = form.save(commit=False)
+            tweet.user = request.user
+            tweet.save()
+            return redirect("/")
+
+    else:
+        return render(request, "tweetApp/tweet_create.html", {"form": form})
+
+  ```
+
+- After doing this we will go in `settings.py` file in our project directory.
+- `settings.py` 👇 **file**
+  ```python
+   # This will handle private route.
+  LOGIN_URL = "tweet_app:login"
+
+  # Redirect after login to main page.
+  LOGIN_REDIRECT_URL = "/"
+  ```
+
+
+  <h2 align="center">2nd method</h2>
+
+    - In this method we can **directly pass an argument** in the `@login_required` **decorator**
+    - In `views.py` **file** 👇
+
+      ```python
+      from django.contrib.auth.decorators import login_required
+
+      @login_required(redirect_field_name="/", login_url="tweet_app:login")
+      def tweet_create(request):
+      form = TweetForm()
+      if request.method == "POST":
+        form = TweetForm(request.POST, request.FILES)
+        if form.is_valid():
+            tweet = form.save(commit=False)
+            tweet.user = request.user
+            tweet.save()
+            return redirect("/")
+
+      else:
+        return render(request, "tweetApp/tweet_create.html", {"form": form})
+
+      ```
+
+- [Click here](https://docs.djangoproject.com/en/5.0/topics/auth/default/#the-login-required-decorator) for more information.
 ------
 ### How to handle media Files
 
