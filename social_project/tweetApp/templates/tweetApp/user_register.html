@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block title %}
+  Tweet App | Register User
+{% endblock %}
+{% block content %}
+  <section class="px-3 py-2 border border-2 rounded-3 d-flex justify-content-center align-items-center flex-column">
+    <h2 class="display-5 text-center border-bottom border-2 pb-2">Registeration Form :</h2>
+    <form class="my-2 w-100 d-flex flex-column align-items-center" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <label for="{{ field.auto_id }}" class="fs-4 w-75 fw-bold d-block">{{ field.label }}</label>
+        {{ field }}
+      {% endfor %}
+      <div class="w-75">
+        <button type="submit" class="btn btn-outline-primary btn-lg my-2 fs-3 d-inline-block fw-bold">Submit</button>
+      </div>
+    </form>
+
+    <div class="fs-5 fw-bold py-2">
+      Already Have an account <a class="text-decoration-none" href="{% url 'tweet_app:login' %}">Login</a>
+    </div>
+  </section>
+{% endblock %}

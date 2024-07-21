@@ -10,14 +10,17 @@
         <div class="card" style="width: 18rem">
           <img src="{{ tweet.user_image.url }}" class="card-img-top" alt="{{ tweet.user }}-img" />
           <div class="card-body">
-            <h5 class="card-title">{{ tweet.user_name }}</h5>
+            <h5 class="card-title">Tweet By - <span class="text-success">{{ tweet.user|title }}</span></h5>
             <p class="card-text">{{ tweet.user_text }}</p>
             <p class="card-text">
               Tweet at - <span class="fw-bold text-secondary">{{ tweet.cretated_at }}</span>
             </p>
-            <a href="{% url 'tweet_app:edit_tweet' tweet.pk %}" class="btn btn-warning mr-2 d-inline-block">Edit</a>
 
-            <a href="{% url 'tweet_app:delete_tweet' tweet.pk %}" class="btn btn-danger mx-3 d-inline-block">Delete</a>
+            {% if tweet.user == request.user %}
+              <a href="{% url 'tweet_app:edit_tweet' tweet.pk %}" class="btn btn-warning mr-2 d-inline-block">Edit</a>
+
+              <a href="{% url 'tweet_app:delete_tweet' tweet.pk %}" class="btn btn-danger mx-3 d-inline-block">Delete</a>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -113,6 +113,21 @@ USE_I18N = True
 
 USE_TZ = True
 
+# To Login a user
+
+LOGIN_REDIRECT_URL = "/"
+
+
+# This handle private route.
+LOGIN_URL = "tweet_app:login"
+
+
+LOGOUT_REDIRECT_URL = "/"
+
+
+# LOGIN_URL = '/login/'
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

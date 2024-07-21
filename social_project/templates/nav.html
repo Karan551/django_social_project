@@ -1,26 +1,34 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand fs-4 fw-bold" href="#">TweetBar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link fs-5 {% if request.resolver_match.url_name == 'index' %}active{% endif %}" aria-current="page" href="{% url 'tweet_app:index' %}">Home</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link fs-5 {% if request.resolver_match.url_name == 'tweet' %}active{% endif %}" href="{% url 'tweet_app:tweet' %}">Tweet</a>
-          </li>
-          
-            
-          
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+  <div class="container-fluid">
+    <a class="navbar-brand fs-4 fw-bold" href="#">TweetBar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link fs-5 {% if request.resolver_match.url_name == 'index' %}active{% endif %}" aria-current="page" href="{% url 'tweet_app:index' %}">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link fs-5 {% if request.resolver_match.url_name == 'tweet' %}active{% endif %}" href="{% url 'tweet_app:tweet' %}">Tweet</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2 fs-5" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success fs-5" type="submit">Search</button>
+      </form>
+      <div class="mx-2">
+        <a href="{% url 'tweet_app:register' %}" class="btn btn-outline-success fw-bold fs-5">Register</a>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'tweet_app:logout' %}" class="btn btn-outline-success fw-bold fs-5 mx-2">Logout</a>
+        {% else %}
+          <a href="{% url 'tweet_app:login' %}" class="btn btn-outline-success fw-bold fs-5 mx-2">Login</a>
+        {% endif %}
+      </div>
+
+      <div class="form-check form-switch">
+        <input class="form-check-input hover-cursor-pointer" type="checkbox" role="switch" id="theme-switch" />
+        <label class="form-check-label fw-bold" for="theme-switch"><span id="theme-text">Dark</span> Mode</label>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
