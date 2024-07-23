@@ -585,6 +585,79 @@ INSTALLED_APPS =[
 
 - [Click here](https://docs.djangoproject.com/en/5.0/topics/auth/default/#the-login-required-decorator) for more information.
 ------
-### How to handle media Files
+## How To add environment variables in Django :-
+
+  - **Step :-1** 👉  &nbsp; Create a `.env` file in **project root directory** or `BASE_DIR` , In simple terms we can say that where `manage.py `file is located.
+  
+  - **Step :-2** 👉  &nbsp; And Write Your all credentials in `.env` file.
+      -  **For example :-** 👇
+      
+          ```text
+            DATABASE_NAME = 'your_database_name'
+            DATABASE_PASSWORD = 'your_database_password'
+
+            SECRET_KEY = 'your_secret_key'
+          ```  
+
+- **Step :-3** 
+    <h3 align="center">1st Method </h3>
+
+
+    -  First And Firemost We have to install this module :- 
+        ```bash
+        pip install python-dotenv
+
+        # or type this command
+        pip3 install python-dotenv
+        ```  
+    
+    - Anywhere in our project where we want to use our credentials that we have written in `.env` file. We can use this in the following way :-
+        ```python
+        import os 
+        from dotenv import load_dotenv
+
+        # To load all config from .env
+        load_dotenv()
+
+        # To get credentials (Syntax) -> os.getenv('key_name') 
+        print(os.getenv('DATABASE_PORT'))
+
+        # Another method
+
+        print(os.environ.get('DATABASE_NAME'))
+
+        ``` 
+    
+    - If we have not written our credentials in string format then we have to convert it into **string** with the help of **str()** method after getting our credentials.
+
+  <h3 align="center">2nd Method </h3>
+
+  - We have to install the following module:-
+  
+      ```bash
+      pip install environ
+
+      # or type this command
+      pip3 install environ  
+      ``` 
+  - **This module is used only in django framework only.**
+  - In `settings.py` file 👇
+      ```python
+      import os
+      from environ import Env
+
+      # For Environment variable.
+      env = Env()
+
+      # To tell that our .env file in base directory.
+      Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+      print(env("DATABASE_NAME"))
+      print(env("DATABASE_PASSWORD"))
+      ``` 
+   
+
+------
+## How to handle media Files
 
 - [Click Here](https://docs.djangoproject.com/en/5.0/topics/files/) for more information.
