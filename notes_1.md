@@ -614,7 +614,7 @@ INSTALLED_APPS =[
     - Anywhere in our project where we want to use our credentials that we have written in `.env` file. We can use this in the following way :-
         ```python
         import os 
-        from dotenv import load_dotenv
+        from dotenv import load_dotenv,dotenv_values
 
         # To load all config from .env
         load_dotenv()
@@ -625,6 +625,11 @@ INSTALLED_APPS =[
         # Another method
 
         print(os.environ.get('DATABASE_NAME'))
+
+        # Otherwise we create dictionary and further we get values from that dictionary.
+        conf = dotenv_values()
+
+        print(conf['DATABASE_NAME'])
 
         ``` 
     
