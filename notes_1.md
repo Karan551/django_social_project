@@ -663,6 +663,88 @@ INSTALLED_APPS =[
    
 
 ------
+## How To Show Messages When User Logged In Or Log out :-
+- When **User Logged In or Logged Out we can show message** with the help of **messages framework**.
+ 
+  ### Adding a Message :-
+  - Go To `views.py` file in your app directory and the following code
+  - **Syntax :-** 👉 &nbsp;`messages.Tag(request,"Message Here")` 
+  - **This is shortcut method.**
+  - `views.py` **file** 👇
+    ```python
+    from django.contrib.auth import authenticate, login
+    from django.contrib import messages
+
+    def index(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+
+            # Here we show success message.
+            messages.success(request, "Successfully Logged In.")
+
+            return redirect("home")
+        else:
+             # Here we show  error message.
+            messages.error(request, "There was an error UserName or Password.")
+
+            return redirect("home")
+
+    else:
+        return render(request, "website/index.html")
+    ``` 
+    - **This is second method we can add message with this method also.**
+     
+    ```python
+    from django.contrib import messages
+    messages.add_message(request, messages.INFO, "Hello world.")
+    ```
+
+   ### Displaying  Messages :-
+
+   - In Our **templates** we add something like this :-
+   - `index.html` **file** 👇
+      ```html
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+
+              <p class="{{ message.tags }}">{{ message }}</p >
+
+          {% endfor %}
+        </div>
+
+      {% endif %}
+
+      ``` 
+  ### How To Customize Message tag :-
+
+  - Go To your project `settings.py` file and add the following code :-
+  - `settings.py` **file** 👇
+      ```python
+      from django.contrib.messages import constants as messages
+      
+      #  To change message constants
+      MESSAGE_TAGS = {
+
+              # messages.ERROR: "danger",
+              # or we can add anything css class that we want.
+              messages.ERROR: 'alert-danger',
+              messages.DEBUG: 'alert-secondary',
+              messages.INFO: 'alert-info',
+              messages.SUCCESS: 'alert-success',
+              messages.WARNING: 'alert-warning',
+              
+
+              }
+
+      ``` 
+
+- [Click Here](https://docs.djangoproject.com/en/5.0/ref/contrib/messages/#changing-the-minimum-recorded-level-per-request) for more information.
+------
 ## How to handle media Files
 
 - [Click Here](https://docs.djangoproject.com/en/5.0/topics/files/) for more information.
