@@ -286,3 +286,141 @@ ALTER TABLE tableName DROP PRIMARY KEY;
 ------ 2nd Syntax (If Constraint Name then use this)
 ALTER TABLE tableName DROP CONSTRAINT constraintName;
 ```
+------
+### 4. CHECK :-
+
+- `CHECK` **constraint is used to limit the value in a range that can placed in a column.**
+- **After Applying `CHECK` constraint  that column will accept** `NULL` **value but not accept a value that will not satisfy of given conditions that we will apply.**
+  
+#### How To Apply CHECK CONSTRAINT When We Create A Table :-
+- **Syntax :-** 👇
+
+```text
+CREATE TABLE tableName(
+    column1 dataType constraint,
+    column2 dataType constraint,
+    column3 dataType constraint,
+    ......
+    CONSTRAINT constraintName CHECK (condition)
+    );
+
+---- 2nd method
+
+CREATE TABLE tableName(
+    column1 dataType constraint,
+    column2 dataType constraint,
+    column3 dataType constraint,
+    ......
+    CHECK (condition)
+    );
+
+```
+For Example:-
+
+```sql
+CREATE TABLE Employee(
+    --- PRIMARY KEY Constraint
+    empid int PRIMARY KEY,
+
+    --- NOT NULL Constraint
+    name varchar(255) NOT NULL,
+    age int,
+    salary float,
+
+    --- CHECK constraint
+    CONSTRAINT c1 CHECK (age>=18)
+
+);
+```
+
+#### How To Apply CHECK CONSTRAINT After Creating A Table :-
+
+- If we apply `CHECK` `CONSTRAINT` **after creating a table on any field/column in a given table then that column values should be satisfied before that conditions we want to apply on that field/column.**
+
+- **Syntax :-** 👇
+```text
+ALTER TABLE tableName ADD CONSTRAINT constraintName CHECK (conditions);
+
+----- 2nd method
+ALTER TABLE tableName ADD CHECK (conditions);
+```
+- **For Example :-** 👇
+```sql
+ALTER TABLE Employee ADD CONSTRAINT c1 CHECK (age>=18);
+
+```
+
+#### How To Delete CHECK CONSTRAINT In A Table :-
+
+- **Syntax :-** 👇
+
+```text
+ALTER TABLE tableName DROP CHECK constraintName;
+
+```
+- **For Example :-** 👇
+```sql
+ALTER TABLE Employee DROP CHECK c1;
+
+```
+------
+### 5. DEFAULT :-
+
+- **The** `DEFAULT` **constraint is used to set a default value for a column.**
+- **When we do not set default value it takes NULL values.**
+- **When We create a new table by defult `DEFAULT` Constraint will be applied until unless if we don't specify any default.**
+
+#### How To Apply CHECK CONSTRAINT When We Creating A Table :- 
+**Syntax :-** 👇
+```txt
+CREATE TABLE tableName(
+    colName type,
+    colName type,
+    colName type DEFAULT value,
+    .....
+    );
+
+```
+
+**For Example :-** 👇
+```sql
+CREATE TABLE Employee(
+   --- PRIMARY KEY Constraint
+    empid int PRIMARY KEY,
+
+    --- NOT NULL Constraint
+    name varchar(255) NOT NULL,
+    age int,
+    
+    --- DEFAULT Constraint
+    salary float DEFAULT 10000,
+    );
+```
+
+ #### How To Apply CHECK CONSTRAINT After Creating A Table :-
+
+**Syntax :-** 👇
+
+```txt
+ALTER TABLE tableName ALTER colName SET DEFAULT defaultValue;
+
+```
+
+**For Example :-** 👇
+```sql
+ALTER TABLE Employee ALTER salary SET DEFAULT 10000;
+```
+
+
+#### How To Delete DEFAULT CONSTRAINT In A Table :-
+
+**Syntax :-** 👇
+
+```txt
+ALTER TABLE tableName ALTER columnName DROP DEFAULT;
+```
+
+**For Example :-** 👇
+```sql
+ALTER TABLE Employee ALTER salary DROP DEFAULT;
+```
