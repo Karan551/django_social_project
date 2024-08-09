@@ -745,6 +745,104 @@ INSTALLED_APPS =[
 
 - [Click Here](https://docs.djangoproject.com/en/5.0/ref/contrib/messages/#changing-the-minimum-recorded-level-per-request) for more information.
 ------
+## How To configure Tailwind CSS with Django
+<h3 align="center">1st Method</h3>
+
+- After creating a **django project** **open your integrated terminal or terminal and go where** your `.venv` or `.gitignore` file is located and type the following commannd
+- **This command will install Tailwind CSS as a dev dependency using NPM :-**
+```bash
+npm install -D tailwindcss
+```
+  - Open `package.json` file
+  - **syntax :-** 👉&nbsp; **tailwindcss -i inputCSSPath -o outputCSSPath -w**
+  
+  - **where** 👇
+    - **-i**  👉 &nbsp; input 
+    - **-o**  👉 &nbsp; output 
+    - **-w**  👉 &nbsp; watch
+             
+    ```json
+  
+    "scripts":{
+      "dev": "tailwindcss -i ./tailwind_practice/tailwindPractice/static/tw/tailwind-input.css -o ./tailwind_practice/tailwindPractice/static/css/output.css -w"
+    }
+    ```
+- open your `input.css` file and write the following code:-
+  ```css
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  ```
+
+- **Open the terminal where your package.json file is located and type the following command:-**
+
+  ```bash
+  npm run dev
+  ```
+
+
+- Next step, Using the Tailwind CLI create a new `tailwind.config.js` file:
+    ```bash
+    npx tailwindcss init
+    ```
+- Open `tailwind.config.js` file and write the following code :-
+  ```javascript
+
+  content: [
+    // Syntax 👉 ./projectRootDirectory/**/*.{html,js}
+    
+    // This will write 
+      "./tailwind_practice/**/*.{html,js}"
+    ],
+  ```
+- **Open static directory where you write your css in project root directory and create a folder css and inside css folder create a file which name output.css (or anything that you want css file).**
+  - **path:-** 👉 **static/css/output.css**
+- **This output.css file we will link or include in our base.html file.** 
+- Inside project root directory open `templates` type the follwing code:-
+
+  - **path:-** 👉 **templates/base.html**
+  ```html
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>
+        {% block title %}
+          Tailwind Practice
+        {% endblock %}
+      </title>
+
+      <!-- Here we will link our output.css file -->
+      <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+
+  </head>
+  <body>
+    <main class="min-h-screen flex flex-col items-center justify-center bg-[#333]">
+          {% block content %}
+
+          {% endblock %}
+    </main>
+  </body>
+  </html>
+
+  ``` 
+
+
+  - **path:-** 👉 **templates/pages/home.html**
+  ```html
+  {% extends 'base.html' %}
+
+  {% block content %}
+  <h1 class="text-5xl px-2 py-4 text-black text-center bg-white rounded-lg w-2/3 hover:bg-orange-500 hover:cursor-pointer hover:text-white">This is our Home Page.</h1>
+  {% endblock %}
+  ``` 
+- **After doing above step run manage.py file in another terminal with the following command :-**
+  ```bash
+  python3 manage.py runserver
+  ```
+------
 ## How to handle media Files
 
 - [Click Here](https://docs.djangoproject.com/en/5.0/topics/files/) for more information.
