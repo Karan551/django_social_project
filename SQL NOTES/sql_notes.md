@@ -447,7 +447,7 @@ ALTER TABLE Employee ALTER salary DROP DEFAULT;
     ```sql
     ALTER TABLE tableName DROP COLUMN columnName; 
     ```
-
+-----
 ## INSERT Command :-
 
 ### How To INSERT A New Record In A Table:-
@@ -496,3 +496,6 @@ ALTER TABLE Employee ALTER salary DROP DEFAULT;
     ```
 
 > __Note :-__  Be careful when updating a records in a table we should add `WHERE` clause in the UPDATE statement. `WHERE` clause specify which record or records should be updated. If we omit/skip `WHERE` clause all records will be updated.
+
+-----
+## SELECT Command :-
