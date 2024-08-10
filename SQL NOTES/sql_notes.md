@@ -424,3 +424,75 @@ ALTER TABLE tableName ALTER columnName DROP DEFAULT;
 ```sql
 ALTER TABLE Employee ALTER salary DROP DEFAULT;
 ```
+-----
+
+## Alter TABLE Command :-
+
+- This command can be used to add, delete or modify columns in an existing table.
+- It can be used to add and drop various constraints an on exitsting table.
+- **Syntax :-** 👇
+    ```sql
+    ALTER TABLE tableName ADD columnName dataType;
+
+    ---- To modify column dataType
+    ALTER TABLE tableName MODIFY COLUMN columnName dataType;
+
+    ----- To Rename a column
+    ALTER TABLE tableName RENAME COLUMN oldColumnName TO newColumnName;
+    ```
+
+### How To Delete a column :-
+- **Syntax :-** 👇
+
+    ```sql
+    ALTER TABLE tableName DROP COLUMN columnName; 
+    ```
+
+## INSERT Command :-
+
+### How To INSERT A New Record In A Table:-
+
+- This command is used to insert a new record into the specified Table.
+
+-  **Specify both column name and values to be inserted.**
+
+
+- **Syntax :-** 👇
+    ```sql
+    INSERT INTO tableName (col1,col2,col3,.....) VALUES (value1,value2,value3,.....);
+    ```
+- **If We  are adding values for all the columns of the table, we do not need to specify the column names in the SQL query. However, make sure the order of the values is in the same order as the columns in the table.** 
+-  **Syntax :-** 👇
+    ```sql
+    INSERT INTO tableName VALUES (value1,value2,value3,.....);
+    ```
+
+- **It is not necessary to insert data for all the columns.When lesser columns are specified remaining columns will have either default values or NULL.**
+
+- **For Exmple :-** 👇
+
+    ```sql
+    ----- To insert data in a table with column Name and values.
+    insert into Employee (empid,name,age,department,salary) values(10,'Manav',24,'Tech',45000);
+
+    ---- To insert record in a table without column name but order wiil be same that will be in table.
+    insert into Employee Values(9,'Master',52,50000,'HR');
+    ```
+-----
+## How To Update A Record :-
+
+- **The** `UPDATE` **statement is used to modify the existing records in a table.**
+
+- **Syntax :-** 👇
+
+    ```sql
+    UPDATE tableName SET column1=value1, column2=value2,column3=value3,...... where condition;
+    ```
+
+- **For Example :-** 👇
+
+    ```sql
+    update Employee set department='HR' where name='Mukesh';
+    ```
+
+> __Note :-__  Be careful when updating a records in a table we should add `WHERE` clause in the UPDATE statement. `WHERE` clause specify which record or records should be updated. If we omit/skip `WHERE` clause all records will be updated.
