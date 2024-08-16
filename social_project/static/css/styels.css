@@ -9,3 +9,6 @@ input {
 .errorlist {
     list-style-type: none;
 }
+.hover-text-underline:hover {
+    text-decoration: underline !important
+}

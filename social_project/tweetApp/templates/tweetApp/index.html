@@ -3,11 +3,11 @@
   Tweet App
 {% endblock %}
 {% block content %}
-  <h1>Tweet Section</h1>
+  <h1 class="text-center">Tweet Section</h1>
   <section class="row mx-auto">
     {% for tweet in tweets %}
-      <div class="col-12 col-md-4 my-2 my-sm-1 mx-sm-4 mx-md-5">
-        <div class="card" style="width: 18rem">
+      <div class="col my-2">
+        <div class="card h-100" style="width: 18rem">
           <img src="{{ tweet.user_image.url }}" class="card-img-top" alt="{{ tweet.user }}-img" />
           <div class="card-body">
             <h5 class="card-title">Tweet By - <span class="text-success">{{ tweet.user|title }}</span></h5>

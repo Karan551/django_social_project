@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block title %}
+  Search
+{% endblock %}
+{% block content %}
+  <h2 class="text-center">Search Results Are :-</h2>
+  {% if results %}
+    <section class="my-3 row">
+      {% for tweet in results %}
+        <div class="col col-md-4 my-2 mx-2">
+          <div class="card h-100" style="width: 18rem">
+            <img src="{{ tweet.user_image.url }}" class="card-img-top" alt="{{ tweet.user }}-img" />
+            <div class="card-body">
+              <h5 class="card-title">Tweet By - <span class="text-success">{{ tweet.user|title }}</span></h5>
+              <p class="card-text">{{ tweet.user_text }}</p>
+              <p class="card-text">
+                Tweet at - <span class="fw-bold text-secondary">{{ tweet.cretated_at }}</span>
+              </p>
+
+              {% if tweet.user == request.user %}
+                <a href="{% url 'tweet_app:edit_tweet' tweet.pk %}" class="btn btn-warning mr-2 d-inline-block">Edit</a>
+
+                <a href="{% url 'tweet_app:delete_tweet' tweet.pk %}" class="btn btn-danger mx-3 d-inline-block">Delete</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p class="my-3 border border-info rounded-2 px-4 py-3 fs-4 fw-bold">Sorry Data Not Found.</p>
+  {% endif %}
+{% endblock %}

@@ -499,3 +499,35 @@ ALTER TABLE Employee ALTER salary DROP DEFAULT;
 
 -----
 ## SELECT Command :-
+
+- `SELECT` command is used to select data from a database.
+- **Syntax** 👇
+    ```sql
+    SELECT col1,col2,col3,..... FROM tableName;
+    ```
+- **Here `col1`,`col2`,`col3` are the field(column) name of the table in which we want to select data.**
+
+#### How To SELECT All Data From a Database :-
+- **If we want to Select all rows and columns then we will use the following command :-**
+- **Syntax** 👇
+    ```sql
+    SELECT * FROM tableName;
+    ```
+
+#### How To SELECT Specified Columns And All Rows :-
+
+- **If we want to select specific and all rows then we will use the following command :-**
+- This gives result specified column in which we specify column.
+
+- **Syntax** 👇
+    ```sql
+    SELECT col1,col2,col3,..... FROM tableName;
+    ```
+#### Select All Columns and Specified Rows :-
+
+- **If we want to select specified rows then we will have to use `WHERE` clause.**
+- **Syntax** 👇
+    ```sql
+    SELECT * FROM tableName WHERE condition;
+    ```
+### How To Select Different Values In a Table :-

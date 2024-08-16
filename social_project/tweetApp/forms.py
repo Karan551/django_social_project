@@ -42,7 +42,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Enter Your user name:",
-                "class": "px-3 py-2 fs-4 d-block mb-4 rounded-2 w-75",
+                "class": "px-3 py-2 fs-4 d-block mb-4 rounded-2 w-100",
             }
         ),
     )
@@ -52,7 +52,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.EmailInput(
             attrs={
                 "placeholder": "Enter Your Email:....",
-                "class": "px-3 py-2 fs-4 d-block mb-4 w-75 rounded-2",
+                "class": "px-3 py-2 fs-4 d-block mb-4 w-100 rounded-2",
                 "autocomplete": "username",
             }
         ),
@@ -63,7 +63,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs={
                 "placeholder": "Enter Your Password ...",
-                "class": "px-3 py-2 fs-4 d-block mb-4 w-75 rounded-2",
+                "class": "px-3 py-2 fs-4 d-block mb-4 w-100 rounded-2",
                 "autocomplete": "new-password",
             }
         ),
@@ -74,7 +74,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs={
                 "placeholder": "Confirm Your Password ...",
-                "class": "px-3 py-2 fs-4 d-block mb-2 w-75 rounded-2",
+                "class": "px-3 py-2 fs-4 d-block mb-2 w-100 rounded-2",
                 "autocomplete": "new-password",
             }
         ),
@@ -92,7 +92,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Enter Your UserName...",
-                "class": "px-3 py-2 fs-4 d-block mb-4 w-75 rounded-2",
+                "class": "px-3 py-2 fs-4 d-block mb-4 w-100 rounded-2",
                 "autocomplete":"username"
             }
         ),
@@ -103,7 +103,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.PasswordInput(
             attrs={
                 "placeholder": "Enter Your Password...",
-                "class": "px-3 py-2 fs-4 d-block mb-4 w-75 rounded-2",
+                "class": "px-3 py-2 fs-4 d-block mb-4 w-100 rounded-2",
                 "autocomplete":"current-password",
             }
         ),
