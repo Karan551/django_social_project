@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import TweetForm, RegisterForm, LoginForm
@@ -115,8 +114,5 @@ def search(request):
     user_query = request.GET.get("user-search")
     search_result = Tweet.objects.filter(
         Q(user_name__icontains=user_query) | Q(user_text__icontains=user_query))
-    print("this is user search :", user_query)
 
     return render(request, "tweetApp/search.html", {"results": search_result})
-
-    pass
