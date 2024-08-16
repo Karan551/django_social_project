@@ -18,14 +18,15 @@ class TweetForm(forms.ModelForm):
             "user_text": forms.Textarea(
                 attrs={
                     "placeholder": "Write Your Tweet Here...",
-                    "class": "form-control input-field fs-4 text-white border border-3 border-white rounded-2",
+                    "class": "form-control input-field fs-4 text-white border border-2 border-info rounded-2 mb-3",
                     "rows": "5",
                     "cols": "20",
                 }
             ),
-            "user_image": forms.ClearableFileInput(
+            "user_image": forms.FileInput(
                 attrs={
-                    "class": "d-inline-block p-2 fs-5 fw-bold border-4",
+                    "class": "d-inline-block px-3 py-2 fs-5 fw-bold border-2 rounded-2",
+                    "accept":".png, .jpeg, .jpg"
                 }
             ),
         }
@@ -82,11 +83,6 @@ class RegisterForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-
-    # class Meta:
-    #     models = User
-    #     # fields = ["email", "password"]
-
     username = forms.CharField(
         label="Enter Your UserName:",
         widget=forms.TextInput(
