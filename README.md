@@ -7,6 +7,7 @@ Welcome to the Django Tweet Project! This application allows users to create and
 - **Create Tweets:** Users can compose and post new tweets.
 - **Edit Tweets:** Users can modify their existing tweets.
 - **User Authentication:** Users can register, log in, and manage their accounts.
+- **Search Tweet :-** Users can search any tweet.
 - **Light / Dark Mode** Feature.
 
 ## Usage
