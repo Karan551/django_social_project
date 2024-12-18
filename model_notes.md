@@ -147,7 +147,98 @@ CREATE TABLE myapp_person (
         ``` 
       - **It used only during development not in production.**
 
-9.  `ImageField()` **:-** 👉 
+9.  `ImageField()` **:-** 👉 Inherits all attributes and methods from `FileField`, but also validates that the uploaded object is a valid image.
+
+
+### Realtionship Fields :-
+
+10. `ForeignKey()` **:-** 👉 **`ForeignKey` is used to create a relationship between two models where one model (the "child" model) references another model (the "parent" model).**
+    - **A `ForeignKey` field in a Django model means that each instance of the model can be linked to one instance of another model. However, one instance of the referenced model can have multiple instances of the model with the foreign key.**
+    - **In simpler terms :-**
+
+        **Many-to-one relationship: Multiple records in the first model (the one with the ForeignKey) can refer to a single record in the second model.**
+
+    - **It defines a many-to-one relationship, where many instances of the child model can be associated with one instance of the parent model.**
+
+
+    - Syntax :- 
+      ```python
+      models.ForeignKey(to, on_delete, **options)
+      ```
+        - `to` :- 👉 **The model that you are linking to (i.e., the model being referenced). This should be the name of another model or an already defined model class.**
+
+        - `on_delete`:-👉 **Specifies what should happen when the referenced object is deleted. This is a required parameter, and it typically takes values like `CASCADE`, `SET_NULL`, `PROTECT`, etc.**
+
+        - `**options`: **Additional optional parameters (like `null`, `blank`, `related_name`, etc.).**
+
+    
+
+    #### Foreign Key Options :-
+
+      - `on_delete=models.CASCADE` :- 👉 **This means that when the referenced object (e.g., the Author) is deleted, all related Book objects will also be deleted (cascaded).**
+
+      - `null=True`:- 👉 **If you want the foreign key to be optional (i.e., a Book may not have an author), you can set this to True.**
+
+      - `blank=True`: **If you want to allow the field to be left blank in forms (e.g., when creating or updating a book), you can set this to `True`.**
+
+      - `related_name`:- 👉 **You can specify a reverse relation from the Author model back to the Book model. For example, if you wanted to access all the books of an author, you could set <br/> `related_name='books'` on the foreign key. Then, `author.books.all()` would return all the books written by that author.**
+
+    ### For Example :-
+
+    ```python
+    from django.db import models
+
+    class Author(models.Model):
+      name = models.CharField(max_length=100)
+
+      def __str__(self):
+        return self.name
+
+
+    class Book(models.Model):
+      title = models.CharField(max_length=200)
+      author = models.ForeignKey(Author, on_delete=models.CASCADE,related_name='books')
+
+      def __str__(self):
+        return self.title
+
+
+    # Now you can access all books of an author following methods
+    author = Author.objects.get(id=1)
+    books_by_author = author.books.all()
+
+
+    # In this case, author.books.all() would return all Book instances that have that particular Author.
+    ```
+
+    - **The `on_delete` option defines what happens to the child model when the referenced parent model is deleted.**
+
+    #### `on_delete` Options :- 
+    - The `on_delete` option controls what happens when the referenced object (the object that the foreign key points to) is deleted. Common values for `on_delete` include:
+
+        1. `models.CASCADE` :- **When the referenced object is deleted, all related objects are also deleted.**
+
+            - **Example: If an Author is deleted, all books related to that author will also be deleted.**
+
+        2. `models.PROTECT` :- **Prevents the deletion of the referenced object if there are any related objects. You can't delete the referenced object until all related objects are deleted or removed.**
+
+            - **Example: If you try to delete an Author who has books associated with them, Django will raise a ProtectedError.**
+
+        3. `models.SET_NULL` :- **Sets the foreign key to `NULL` if the referenced object is deleted (only works if the foreign key field allows `NULL`).**
+
+            - **Example: If you delete an Author, the author field in the Book model will be set to `NULL`.**
+
+        4. `models.SET_DEFAULT` :- **Sets the foreign key to its default value if the referenced object is deleted (if a default is defined).**
+
+            - **Example: If you delete an Author, the author field will be set to a default value.**
+
+        5. `models.SET()`:- **Allows you to specify a custom function or value to set when the referenced object is deleted.**
+
+        6. `models.DO_NOTHING`: **Do nothing when the referenced object is deleted. You are responsible for handling the situation manually.**
+      
+      - Clicke [Here](https://docs.djangoproject.com/en/5.1/ref/models/fields/#foreignkey) To Know about Relation ship fields 
+
+- There are many other options — we can view the full list of field options [here](https://docs.djangoproject.com/en/5.1/ref/models/fields/#field-types).
 
 
 -----
