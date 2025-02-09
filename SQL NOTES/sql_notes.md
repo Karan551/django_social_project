@@ -620,3 +620,30 @@ ALTER TABLE Employee ALTER salary DROP DEFAULT;
     > Note :- &nbsp; `NULL` Values are ignored.
 
 5. `SUM()` :- 👉 This function returns the total sum of a numeric column.
+
+6. `GROUP BY` :- 👉
+    - After `Select` Command 
+      - non aggregated column
+      - `GROUP BY` non aggregated column
+    - **Aggregated Column :- `COUNT`,`MIN`,`MAX`,`MIN`,`SUM`,`AVG`**
+----- 
+
+## 🌟 MYSQL `LIKE` Operator :-
+
+- **The `LIKE` operator is used in a `WHERE` clause to search for a specified pattern in a column.**
+There are two wildcards often used in conjunction with the `LIKE` operator:
+
+ - **The percent sign `(%)` represents zero, one, or multiple characters**
+
+ - **The underscore sign `(_)` represents one, single character
+The percent sign and the underscore can also be used in combinations!**
+
+**Example :-** 👇
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE columnN LIKE pattern;
+```
+
+- **We can also combine any number of conditions using `AND` or `OR` operators.**
+- [Click](https://www.w3schools.com/MySQL/mysql_like.asp) here for more information.
