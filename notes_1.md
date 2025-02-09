@@ -928,94 +928,98 @@ npm install -D tailwindcss
   STRIPE_SECRET_KEY = 'Your_stripe_sec_key'
   STRIPE_PUB_KEY = 'Your_stripe_pub_key'
   ```
+- **Create a `utils.py` file and write the following code 👇.**
 
-```python
-import stripe
-from django.conf import settings
-stripe.api_key = settings.STRIPE_SECRET_KEY
+  ```python
+  import stripe
+  from django.conf import settings
+  stripe.api_key = settings.STRIPE_SECRET_KEY
 
-proudcts = [
-    {
-      "product_name":"Watch",
-      "price":1000,
-      "quantity":1,
-    }
-]
+  proudcts = [
+      {
+        "product_name":"Watch",
+        "price":1000,
+        "quantity":1,
+      }
+  ]
 
-def product_sales(products:list[dict]):
+  def product_sales(products:list[dict]):
 
-    line_items=[]
-    for product in products:
-        # create a product
-        stripe_product_object = stripe.Product.create(name=product["product_name"])
-        stripe_product_object_id=stripe_product_object.id
+      line_items=[]
+      for product in products:
+          # create a product
+          stripe_product_object = stripe.Product.create(name=product["product_name"])
+          stripe_product_object_id=stripe_product_object.id
 
-        # create price
-        stripe_price_object = stripe.Price.create(
-          currency="usd",
-          unit_amount = product["price"]
-          product = stripe_product_object_id
-        )
+          # create price
+          stripe_price_object = stripe.Price.create(
+            currency="usd",
+            unit_amount = product["price"]
+            product = stripe_product_object_id
+          )
 
-        stripe_price_id = stripe_price_object.id
-        line_items.append({
-                "price":stripe_price_id,
-                "quantity":product["quantity"]
-        })
-    
-    base_end_point = "http://127.0.0.1:8000"
-    success_url = f"{base_end_point}/purchase/start/"
-    cancel_url = f"{base_end_point}/purchase/stop/"
-    
-    checkout_session = stripe.checkout.Session.create(
-        line_items = line_items,
-        mode = "payment",
-        success_url = success_url,
-        cancel_url = cancel_url
-    )
+          stripe_price_id = stripe_price_object.id
+          line_items.append({
+                  "price":stripe_price_id,
+                  "quantity":product["quantity"]
+          })
+      
+      base_end_point = "http://127.0.0.1:8000"
+      success_url = f"{base_end_point}/purchase/start/"
+      cancel_url = f"{base_end_point}/purchase/stop/"
+      
+      # create session
+      checkout_session = stripe.checkout.Session.create(
+          line_items = line_items,
+          mode = "payment",
+          success_url = success_url,
+          cancel_url = cancel_url
+      )
 
-    return checkout_session
-
-  
-
-```
+      return checkout_session
+  ```
 
 #### 🌟 For Single Product :-
-```python
-import stripe
-from django.conf import settings
+- **Create a `utils.py` file and write the following code 👇.**
+  ```python
+  import stripe
+  from django.conf import settings
 
-stripe.api_key = settings.STRIPE_KEY
+  stripe.api_key = settings.STRIPE_KEY
 
 
-def product_sales(product_name="Test Product", product_price=1000):
-    stripe_prod_obj = stripe.Product.create(name=product_name)
-    stripe_prod_obj_id = stripe_prod_obj.id
+  def product_sales(product_name="Test Product", product_price=1000):
 
-    stripe_price_obj = stripe.Price.create(
-        currency="usd",
-        unit_amount=product_price,
-        product=stripe_prod_obj_id
-    )
+      # create a product
+      stripe_prod_obj = stripe.Product.create(name=product_name)
+      stripe_prod_obj_id = stripe_prod_obj.id
 
-    stripe_price_id = stripe_price_obj.id
+      # create price
+      stripe_price_obj = stripe.Price.create(
+          currency="usd",
+          unit_amount=product_price,
+          product=stripe_prod_obj_id
+      )
 
-    base_end_point = "http://127.0.0.1:8000"
-    success_url = f"{base_end_point}/purchase/start/"
-    cancel_url = f"{base_end_point}/purchase/stop/"
+      stripe_price_id = stripe_price_obj.id
 
-    checkout_session = stripe.checkout.Session.create(
-        line_items=[
-            {
-                "price": stripe_price_id,
-                "quantity": 1
-            }
-        ],
-        mode="payment",
-        success_url=success_url,
-        cancel_url=cancel_url
-    )
+      base_end_point = "http://127.0.0.1:8000"
+      success_url = f"{base_end_point}/purchase/start/"
+      cancel_url = f"{base_end_point}/purchase/stop/"
 
-    return checkout_session
+      # create session
+      checkout_session = stripe.checkout.Session.create(
+          line_items=[
+              {
+                  "price": stripe_price_id,
+                  "quantity": 1
+              }
+          ],
+          mode="payment",
+          success_url=success_url,
+          cancel_url=cancel_url
+      )
 
-```
+      return checkout_session
+
+  ```
